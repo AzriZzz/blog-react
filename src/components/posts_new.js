@@ -3,15 +3,20 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
     renderField(field){
+        const { meta: { touched, error } } = field; 
+        const className = `from-group ${touched && error ? 'has-danger' : '' }`;
+
         return(
-            <div className="form-group">
+            <div className={className}>
             <label>{field.label}</label>
                 <input
                     className="form-control"
                     type="text"
                     {...field.input} 
                 />
-                {field.meta.error}
+                <div className="text-help">
+                    { touched ? error: ''}
+                </div>
             </div>
         );
     }
@@ -53,15 +58,15 @@ function validate(values) {
     //validate the input from the 'values'
 
     if (!values.title){
-        errors.title = 'Enter a title!';
+        errors.title = 'Enter a title !';
     }
 
     if (!values.content){
-        errors.content = 'Enter a content!';
+        errors.content = 'Enter a content !';
     }
 
     if (!values.categories){
-        errors.categories = 'Enter a categories!';
+        errors.categories = 'Enter a categories !';
     }
     
     //if error is empty, the form is fine to submit 
